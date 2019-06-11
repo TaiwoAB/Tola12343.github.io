@@ -17,6 +17,13 @@ var active = 1,
     endChecker = false,
     finalGameChecker1, finalGameChecker2, activeCheck;
 
+if (firstPlayerName === "" && secondPlayerName === "" && endPoint === "") {
+    document.getElementById('firstPlayer').placeholder = "Username";
+    document.getElementById('secondPlayer').placeholder = "Username";
+    document.getElementById('number').placeholder = "End Point";
+
+}
+
 pagestatus = parseInt(JSON.parse(localStorage.getItem('Status')));
 
 
@@ -64,6 +71,10 @@ if (gameplayStart === "true") {
     }
 
 }
+
+
+
+
 
 
 /** Event listeners definition */
@@ -456,10 +467,7 @@ function reloading() {
     localStorage.setItem('activeChecker', JSON.stringify(activeCheck));
     pagestatus = "0";
     localStorage.setItem('Status', JSON.stringify(pagestatus));
-    if (document.getElementById('firstPlayer').value === null) {
-        document.querySelector('.inputText').classList.remove('inputText');
-        document.querySelector('.inputText').classList.add('inputText');
-    }
+
 
 
 }
