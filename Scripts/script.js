@@ -456,9 +456,15 @@ function reloading() {
     localStorage.setItem('activeChecker', JSON.stringify(activeCheck));
     pagestatus = "0";
     localStorage.setItem('Status', JSON.stringify(pagestatus));
-    document.getElementById('firstPlayer').placeholder = "Username";
-    document.getElementById('secondPlayer').placeholder = "Username";
-    document.getElementById('number').placeholder = "End Point";
+    document.getElementById('firstPlayer').value = "";
+    document.getElementById('secondPlayer').value = "";
+    document.getElementById('number').value = "";
+    if (document.getElementById('firstPlayer').value === "") {
+        document.getElementById('firstPlayer').placeholder = "Username";
+        document.getElementById('secondPlayer').placeholder = "Username";
+        document.getElementById('number').placeholder = "End Point";
+
+    }
 
 
 
