@@ -1,6 +1,7 @@
 var active1 = 0,
     active2 = 0,
     active3 = 0,
+    pagestatus,
     firstPlayerName = "",
     secondPlayerName = "",
     endPoint = "",
@@ -15,6 +16,9 @@ var active = 1,
     roundScoreCheck = 0,
     endChecker = false,
     finalGameChecker1, finalGameChecker2, activeCheck;
+
+pagestatus = parseInt(JSON.parse(localStorage.getItem('Status')));
+
 
 if (JSON.parse(localStorage.getItem('gamePlayPage')) === null || JSON.parse(localStorage.getItem('gamePlayPage')) === "beginning") {
     gameplayCheck = "true";
@@ -47,15 +51,21 @@ if (gameplayStart === "true") {
 
 
 } else {
-    document.getElementById('startGame').style.display = "block";
-    document.getElementById('gameplayPage').style.display = "none";
-    gameplay = false;
-    document.getElementById('gameplayPage').style.display = "none";
-    restart();
-    gameplayCheck = "false";
-    localStorage.setItem('gamePlayPage', JSON.stringify(gameplayCheck));
+    if (pagestatus === 0) {
+        reloading();
+    } else {
+        document.getElementById('startGame').style.display = "block";
+        gameplay = false;
+        document.getElementById('gameplayPage').style.display = "none";
+        restart();
+        gameplayCheck = "false";
+        localStorage.setItem('gamePlayPage', JSON.stringify(gameplayCheck));
+
+    }
 
 }
+
+
 /** Event listeners definition */
 document.getElementById('firstPlayer').addEventListener('keyup', function () {
     document.getElementById('firstPlayer').classList.remove('noInput');
@@ -78,6 +88,7 @@ document.getElementById('number').addEventListener('keyup', function () {
     active3 = 1;
 });
 document.getElementById('clickStart').addEventListener('click', function () {
+
 
     if (firstPlayerName !== "" && secondPlayerName !== "" && endPoint !== "") {
         numChecker(endPoint);
@@ -113,6 +124,7 @@ document.getElementById('clickStart').addEventListener('click', function () {
 
 function numChecker(a) {
     if (a != parseInt(a)) {
+        document.querySelector('.wrongMessage2').innerHTML = "Wrong end-point input!";
         document.querySelector('.wrongMessage2').style.display = "block";
         active3 = 0;
     } else {
@@ -130,6 +142,9 @@ function numChecker(a) {
 
 function check(a, b, c) {
     if (a === 1 && b === 1 && c === 1) {
+        pagestatus = "1";
+        localStorage.setItem('Status', JSON.stringify(pagestatus));
+
 
         /* Remove the input tags */
         document.getElementById('firstPlayer').style.display = "none";
@@ -238,7 +253,7 @@ document.getElementById('roll').addEventListener('click', function () {
 
                     document.getElementById('player-' + active + '-round').innerHTML = roundScore;
                 } else {
-                    if (diceRoll === 1 || diceRoll === 6) {
+                    if (diceRoll === 1) {
                         roundScore = 0;
                         roundScoreCheck = 0;
                         document.getElementById('player-' + active + '-round').innerHTML = "0";
@@ -318,15 +333,7 @@ document.getElementById('playAgain').addEventListener('click', function () {
 
 document.getElementById('clickReset').addEventListener('click', function () {
 
-    gameplayCheck = "true";
-    localStorage.setItem('gamePlayPage', JSON.stringify(gameplayCheck));
-    document.getElementById('gameplayPage').style.display = "block";
-    document.getElementById('gameplayPage').style.display = "contents";
-    document.getElementById('startGame').style.display = "none";
-    location.reload();
-    activeCheck = "refresh";
-    localStorage.setItem('activeChecker', JSON.stringify(activeCheck));
-
+    reloading();
 
     /* reset the page */
 
@@ -435,5 +442,19 @@ function restart() {
         player1active();
     }
     inGame = false;
+
+}
+
+function reloading() {
+    gameplayCheck = "true";
+    localStorage.setItem('gamePlayPage', JSON.stringify(gameplayCheck));
+    document.getElementById('gameplayPage').style.display = "block";
+    document.getElementById('gameplayPage').style.display = "contents";
+    document.getElementById('startGame').style.display = "none";
+    location.reload();
+    activeCheck = "refresh";
+    localStorage.setItem('activeChecker', JSON.stringify(activeCheck));
+    pagestatus = "0";
+    localStorage.setItem('Status', JSON.stringify(pagestatus));
 
 }
