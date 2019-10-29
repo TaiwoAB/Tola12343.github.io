@@ -162,6 +162,8 @@ function check(a, b, c) {
         document.getElementById('firstPlayerName').textContent = JSON.parse(localStorage.getItem('firstPlayerDetail'));
         document.getElementById('secondPlayerName').textContent = JSON.parse(localStorage.getItem('secondPlayerDetail'));
 
+        document.getElementById('dice').style.display = "none";
+
         //        document.getElementById('secondPlayerName').textContent = secondPlayerName;
         localStorage.setItem('endPointNum', JSON.stringify(endPoint));
 

@@ -65,7 +65,12 @@
     }
 
     #start {
-        margin-top: -132px;
+        margin-top: -30px;
+
+    }
+
+    #clickStart {
+        margin-top: 80px;
     }
 
 
